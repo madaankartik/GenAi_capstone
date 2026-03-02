@@ -3,10 +3,6 @@ import pandas as pd
 import joblib
 import datetime
 
-# -------------------------------
-# PART 1: SETUP & BRAIN
-# -------------------------------
-
 try:
     model = joblib.load("models/ev_demand_model.pkl")
     model_loaded = True
@@ -21,12 +17,7 @@ def prediction(vehicle_model, battery_capacity, location,
                duration, charging_rate, temperature,
                vehicle_age, charger_type, user_type,
                soc_start, soc_end):
-    """
-    Predict energy consumption based on input parameters.
 
-    Returns:
-        float: Predicted energy consumption in kWh, or None if prediction fails
-    """
     if not model_loaded:
         st.error("Model is not loaded. Cannot make predictions.")
         return None
@@ -74,10 +65,6 @@ def prediction(vehicle_model, battery_capacity, location,
     }])
 
     return model.predict(input_df)[0]
-
-# -------------------------------
-# PART 2: THE APP INTERFACE
-# -------------------------------
 
 def main():
     st.title("EV Charging Demand Predictor")
