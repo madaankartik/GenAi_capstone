@@ -14,7 +14,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 def load_data(path):
     df = pd.read_csv(path)
 
-    # Handle missing values
+    # Handle missing value
     df["Battery Capacity (kWh)"] = df["Battery Capacity (kWh)"].fillna(
         df["Battery Capacity (kWh)"].median()
     )
