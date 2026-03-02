@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import joblib
+import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
@@ -84,6 +85,9 @@ def train_model(data_path, model_path):
     print("MAE:", mean_absolute_error(y_test, y_pred))
     print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
     print("R2:", r2_score(y_test, y_pred))
+
+    # Create models directory if it doesn't exist
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
 
     joblib.dump(model, model_path)
 

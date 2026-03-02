@@ -9,13 +9,44 @@ import datetime
 
 try:
     model = joblib.load("models/ev_demand_model.pkl")
+    model_loaded = True
+except FileNotFoundError:
+    st.error("Model file not found. Please train the model first by running: python src/train_model.py")
+    model_loaded = False
 except Exception as e:
     st.error(f"Error loading model: {e}")
+    model_loaded = False
 
 def prediction(vehicle_model, battery_capacity, location,
                duration, charging_rate, temperature,
                vehicle_age, charger_type, user_type,
                soc_start, soc_end):
+    """
+    Predict energy consumption based on input parameters.
+
+    Returns:
+        float: Predicted energy consumption in kWh, or None if prediction fails
+    """
+    if not model_loaded:
+        st.error("Model is not loaded. Cannot make predictions.")
+        return None
+
+    # Input validation
+    if soc_end <= soc_start:
+        st.error("End State of Charge must be greater than Start State of Charge")
+        return None
+
+    if battery_capacity <= 0:
+        st.error("Battery capacity must be greater than 0")
+        return None
+
+    if duration <= 0:
+        st.error("Charging duration must be greater than 0")
+        return None
+
+    if charging_rate <= 0:
+        st.error("Charging rate must be greater than 0")
+        return None
 
     soc_change = soc_end - soc_start
 
@@ -78,13 +109,16 @@ def main():
     soc_end = st.slider("State of Charge End (%)", 0, 100, 80)
 
     if st.button("Predict Energy Consumption"):
+        if not model_loaded:
+            st.error("Cannot make predictions. Model is not loaded.")
+        else:
+            result = prediction(vehicle_model, battery_capacity, location,
+                                duration, charging_rate, temperature,
+                                vehicle_age, charger_type, user_type,
+                                soc_start, soc_end)
 
-        result = prediction(vehicle_model, battery_capacity, location,
-                            duration, charging_rate, temperature,
-                            vehicle_age, charger_type, user_type,
-                            soc_start, soc_end)
-
-        st.success(f"Predicted Energy Consumption: {round(result, 2)} kWh")
+            if result is not None:
+                st.success(f"Predicted Energy Consumption: {round(result, 2)} kWh")
 
 
 if __name__ == "__main__":
