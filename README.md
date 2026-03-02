@@ -17,17 +17,11 @@
   ---
   Technology Stack
 
-  ┌─────────────────────┬───────────────────────────────────────┐
-  │      Component      │              Technology               │
-  ├─────────────────────┼───────────────────────────────────────┤
-  │ ML Models           │ Random Forest Regressor, Scikit-Learn │
-  ├─────────────────────┼───────────────────────────────────────┤
-  │ Data Processing     │ Pandas, NumPy                         │
-  ├─────────────────────┼───────────────────────────────────────┤
-  │ UI Framework        │ Streamlit                             │
-  ├─────────────────────┼───────────────────────────────────────┤
-  │ Model Serialization │ Joblib                                │
-  └─────────────────────┴───────────────────────────────────────┘
+       Component        │              Technology               
+    ML Models           │ Random Forest Regressor, Scikit-Learn 
+        Data Processing │ Pandas, NumPy               
+    UI Framework        │ Streamlit  
+    Model Serialization │ Joblib                                
   ---
   Project Structure
 
@@ -62,15 +56,11 @@
   ---
   Model Performance
 
-  ┌──────────┬──────────┐
-  │  Metric  │  Value   │
-  ├──────────┼──────────┤
-  │ R² Score │ 0.96     │
-  ├──────────┼──────────┤
-  │ MAE      │ 3.76 kWh │
-  ├──────────┼──────────┤
-  │ RMSE     │ 6.08 kWh │
-  └──────────┴──────────┘
+
+    Metric   │  Value 
+    R² Score │ 0.96 
+    MAE      │ 3.76 kWh 
+    RMSE     │ 6.08 kWh 
 
   ---
   Key Features
